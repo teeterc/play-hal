@@ -1,3 +1,4 @@
+import uk.gov.hmrc.SbtArtifactory
 import uk.gov.hmrc.SbtAutoBuildPlugin.autoSourceHeader
 
 name := "play-hal"
@@ -16,10 +17,12 @@ val appDependencies = {
 }
 
 lazy val simpleReactiveMongo = (project in file("."))
-  .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning)
+  .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning, SbtArtifactory)
   .settings(
+    majorVersion := 1,
     autoSourceHeader := false,
     scalaVersion := "2.12.2",
+    makePublicallyAvailableOnBintray := true,
     libraryDependencies ++= appDependencies,
     resolvers += Resolver.typesafeRepo("releases"),
     crossScalaVersions := Seq("2.11.8", "2.12.2")
